@@ -30,29 +30,16 @@ public class ChatController {
 
     private final ChatClient chatClient;
 
-    private VectorStore vectorStore;
-//    @RequestMapping("/chat")
-//    public String chat(String prompt){
-//        System.out.println(prompt);
-//        return chatClient.prompt().user(prompt).call().content();
-////        String call = model.call(message);
-////        return call;
-//
-//    }
-//rag
-@RequestMapping("/chat")
-public String chat(String prompt){
-    System.out.println(prompt);
-    return chatClient
-            .prompt()
-            .user(prompt)
-            .advisors(new QuestionAnswerAdvisor(vectorStore))
-            .call()
-            .content();
+    @RequestMapping("/chat")
+    public String chat(String prompt){
+        System.out.println(prompt);
+        return chatClient.prompt().user(prompt).call().content();
 //        String call = model.call(message);
 //        return call;
 
-}
+    }
+//rag
+
     @GetMapping(value = "/streamChat", produces = "text/event-stream;charset=UTF-8")
     public Flux<String> streamChat(@RequestParam("message")String message){
         //创建随机会话 ID
