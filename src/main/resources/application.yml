@@ -11,16 +11,6 @@ spring:
           top-p: 0.9 # 数值越高，回答越多样
           top-k: 100 # 数值越高，回答越多样
 
-      embedding:
-        model: nomic-embed-text:latest
-    # 向量数据库配置
-    vectorstore:
-      elasticsearch:
-        index-name: ollama-rag-embedding-index
-        similarity: cosine
-        dimensions: 768
-      redis:
-        index:
 
 logging:
   level:

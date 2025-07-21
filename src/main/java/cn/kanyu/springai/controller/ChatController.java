@@ -9,6 +9,7 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,8 @@ import reactor.core.publisher.Flux;
 
 import java.util.UUID;
 
-@RequiredArgsConstructor//有参构造注入ChatClient
 @RestController
+@RequestMapping("/ai")
 public class ChatController {
     //注入模型，配置文件中的模型，或者可以在方法中指定模型
 //    @Resource
@@ -28,9 +29,22 @@ public class ChatController {
     //模拟数据库存储会话和消息
     ChatMemory chatMemory = new InMemoryChatMemory();
 
-    private final ChatClient chatClient;
+    @Autowired
+    private ChatClient chatClient;
 
+    @Autowired(required=false)
     private VectorStore vectorStore;
+
+
+    @GetMapping(value = "/chat", produces = "text/plain; charset=UTF-8")
+    public String generation(String userInput) {
+        // 发起聊天请求并处理响应
+        return chatClient.prompt()
+                .user(userInput)
+                .advisors(new QuestionAnswerAdvisor(vectorStore))
+                .call()
+                .content();
+    }
 //    @RequestMapping("/chat")
 //    public String chat(String prompt){
 //        System.out.println(prompt);
@@ -39,18 +53,7 @@ public class ChatController {
 //        return call;
 //
 //    }
-//rag
-@RequestMapping("/chat")
-public String chat(String prompt){
-    System.out.println(prompt);
-    return chatClient
-            .prompt()
-            .user(prompt)
-            .advisors(new QuestionAnswerAdvisor(vectorStore))
-            .call()
-            .content();
 
-}
 
     @GetMapping(value = "/streamChat", produces = "text/event-stream;charset=UTF-8")
     public Flux<String> streamChat(@RequestParam("message")String message){

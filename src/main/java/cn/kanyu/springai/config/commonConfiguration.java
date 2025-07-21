@@ -15,13 +15,11 @@ import java.util.List;
 @Configuration
 public class commonConfiguration {
     @Bean
-    public ChatClient chatClient(OllamaChatModel model ) {
-        return ChatClient.
-                builder(model).
-                defaultSystem("你将作为一名机器人产品的专家，对于用户的使用需求作出解答")
-                .defaultAdvisors(new SimpleLoggerAdvisor()) //aop环绕增强日志
+    ChatClient chatClient(ChatClient.Builder builder) {
+        return builder.defaultSystem("你将作为一名机器人产品的专家，对于用户的使用需求作出解答")
                 .build();
     }
+
     @Bean
     VectorStore vectorStore(EmbeddingModel embeddingModel) {
         SimpleVectorStore simpleVectorStore = SimpleVectorStore.builder(embeddingModel)
@@ -39,5 +37,4 @@ public class commonConfiguration {
         simpleVectorStore.add(documents);
         return simpleVectorStore;
     }
-
 }
