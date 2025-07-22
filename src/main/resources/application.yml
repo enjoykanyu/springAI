@@ -10,8 +10,16 @@ spring:
           temperature: 0.8 # 温度越高，回答越有创意
           top-p: 0.9 # 数值越高，回答越多样
           top-k: 100 # 数值越高，回答越多样
-
-
+      embedding:
+        options:
+          model: deepseek-r1:1.5b
+    vectorstore:
+      pgvector:
+        index-type: NONE
+        distance-type: cosine_distance
+        dimensions: 2048
+      redis:
+        uri: redis://localhost:6379
 logging:
   level:
     org.springframework.ai.chat.client.advisor: debug
