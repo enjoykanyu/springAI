@@ -60,7 +60,12 @@ public class ChatController {
         //创建随机会话 ID
 //        String sessionId = UUID.randomUUID().toString();
 //        ChatClient chatClient = ChatClient.builder(this.model).defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory, sessionId, 10)).build();
-        return chatClient.prompt().user(message).stream().content();
+        return chatClient
+                .prompt()
+                .user(message)
+                .advisors(new QuestionAnswerAdvisor(vectorStore))
+                .stream()
+                .content();
 //        return chatClient.prompt(message).stream().content();
     }
 
