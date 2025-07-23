@@ -27,7 +27,7 @@ public class ChatController {
 //    private OllamaChatModel model;
 
     //模拟数据库存储会话和消息
-    ChatMemory chatMemory = new InMemoryChatMemory();
+//    ChatMemory chatMemory = new InMemoryChatMemory();
 
     @Autowired
     private ChatClient chatClient;
