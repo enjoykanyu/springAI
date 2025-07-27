@@ -56,7 +56,6 @@ public class ChatController {
                 .advisors(new QuestionAnswerAdvisor(vectorStore))
                 .stream()
                 .content();
-//        return chatClient.prompt(message).stream().content();
     }
 
 }
