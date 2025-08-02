@@ -64,7 +64,7 @@ public class ChatController {
     @Autowired
     OllamaChatModel ollamaChatModel;
     //多模型选择
-    @GetMapping(value = "/mulChatModel", produces = "text/event-stream;charset=UTF-8")
+    @GetMapping(value = "/mulChatModel", produces = "text/stream;charset=UTF-8")
     public Flux<String> streamChatMul(@RequestParam("message")String message, MoreModelConfig moreModelConfig){
 
         ChatClient.Builder builder = ChatClient.builder(ollamaChatModel);
