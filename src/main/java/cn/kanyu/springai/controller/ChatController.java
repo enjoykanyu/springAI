@@ -68,7 +68,7 @@ public class ChatController {
     public Flux<String> streamChatMul(@RequestParam("message")String message, MoreModelConfig moreModelConfig){
 
         ChatClient.Builder builder = ChatClient.builder(ollamaChatModel);
-        builder.defaultOptions(ChatOptions.builder()
+        ChatClient buildChatClient = builder.defaultOptions(ChatOptions.builder()
                 .temperature(moreModelConfig.getTemperature())
                 .model(moreModelConfig.getModel()).build()
         ).build();
