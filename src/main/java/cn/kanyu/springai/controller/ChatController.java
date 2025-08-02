@@ -72,7 +72,7 @@ public class ChatController {
                 .temperature(moreModelConfig.getTemperature())
                 .model(moreModelConfig.getModel()).build()
         ).build();
-        return chatClient
+        return buildChatClient
                 .prompt()
                 .user(message)
                 .advisors(new QuestionAnswerAdvisor(vectorStore))
