@@ -2,6 +2,7 @@ package cn.kanyu.springai.controller;
 import cn.kanyu.springai.entity.MoreModelConfig;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+import org.springframework.ai.chat.client.advisor.api.StreamAroundAdvisor;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -62,11 +63,21 @@ public class ChatController {
     }
 
 
+//    @GetMapping(value = "/promptChat", produces = "text/stream;charset=UTF-8")
+//    public Flux<String> promptChat(@RequestParam("message")String message){
+//       return chatClient
+//                .prompt()
+//               .system(p -> p.param("name","张三").param("age",16).param("sex","男") )
+//                .user(message)
+//                .stream()
+//                .content();
+//    }
+    /*使用系统提示词 旅游出行建议*/
     @GetMapping(value = "/promptChat", produces = "text/stream;charset=UTF-8")
     public Flux<String> promptChat(@RequestParam("message")String message){
-       return chatClient
+        return chatClient
                 .prompt()
-               .system(p -> p.param("name","张三").param("age",16).param("sex","男") )
+//                .system()
                 .user(message)
                 .stream()
                 .content();
