@@ -1,6 +1,7 @@
 package cn.kanyu.springai.config;
 
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.embedding.EmbeddingModel;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
@@ -38,6 +39,7 @@ public class commonConfiguration {
                         "\n" +
                         "## 限制\n" +
                         "- 只讨论与旅游相关话题" )
+                .defaultAdvisors(new SimpleLoggerAdvisor())
                 .build();
     }
 

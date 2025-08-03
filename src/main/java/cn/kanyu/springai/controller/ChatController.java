@@ -73,11 +73,21 @@ public class ChatController {
 //                .content();
 //    }
     /*使用系统提示词 旅游出行建议*/
+//    @GetMapping(value = "/promptChat", produces = "text/stream;charset=UTF-8")
+//    public Flux<String> promptChat(@RequestParam("message")String message){
+//        return chatClient
+//                .prompt()
+//              .system()
+//                .user(message)
+//                .stream()
+//                .content();
+//    }
+
+    /*adVisor对话实现拦截log*/
     @GetMapping(value = "/promptChat", produces = "text/stream;charset=UTF-8")
     public Flux<String> promptChat(@RequestParam("message")String message){
         return chatClient
                 .prompt()
-//                .system()
                 .user(message)
                 .stream()
                 .content();
