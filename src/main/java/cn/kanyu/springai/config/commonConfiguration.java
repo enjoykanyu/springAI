@@ -14,7 +14,7 @@ import java.util.List;
 public class commonConfiguration {
     @Bean
     ChatClient chatClient(ChatClient.Builder builder) {
-        return builder.defaultSystem("你将作为一名机器人产品的专家，对于用户的使用需求作出解答")
+        return builder.defaultSystem("你将作为一名机器人产品的专家，对于用户的使用需求作出解答,当前服务的用户姓名：{name},年龄：{age}，性别：{sex}")
                 .build();
     }
 

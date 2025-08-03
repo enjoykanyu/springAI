@@ -61,6 +61,17 @@ public class ChatController {
                 .content();
     }
 
+
+    @GetMapping(value = "/promptChat", produces = "text/stream;charset=UTF-8")
+    public Flux<String> promptChat(@RequestParam("message")String message){
+       return chatClient
+                .prompt()
+               .system(p -> p.param("name","张三").param("age",16).param("sex","男") )
+                .user(message)
+                .stream()
+                .content();
+    }
+
     @Autowired
     OllamaChatModel ollamaChatModel;
     //多模型选择
