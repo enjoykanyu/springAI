@@ -1,8 +1,10 @@
 package cn.kanyu.springai.controller;
 import cn.kanyu.springai.entity.MoreModelConfig;
+import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.client.advisor.api.StreamAroundAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -86,6 +88,18 @@ public class ChatController {
     /*adVisor对话实现拦截log*/
     @GetMapping(value = "/promptChat", produces = "text/stream;charset=UTF-8")
     public Flux<String> promptChat(@RequestParam("message")String message){
+        return chatClient
+                .prompt()
+                .user(message)
+                .stream()
+                .content();
+    }
+
+
+
+    /*adVisor对话实现多轮对话记忆*/
+    @GetMapping(value = "/historyChat", produces = "text/stream;charset=UTF-8")
+    public Flux<String> historyChat(@RequestParam("message")String message){
         return chatClient
                 .prompt()
                 .user(message)
