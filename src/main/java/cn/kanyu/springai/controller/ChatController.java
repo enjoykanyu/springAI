@@ -2,12 +2,12 @@ package cn.kanyu.springai.controller;
 import cn.kanyu.springai.entity.MoreModelConfig;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
-import org.springframework.ai.chat.client.advisor.api.StreamAroundAdvisor;
+//import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+//import org.springframework.ai.chat.client.advisor.api.StreamAroundAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.ollama.OllamaChatModel;
-import org.springframework.ai.vectorstore.VectorStore;
+//import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,19 +28,19 @@ public class ChatController {
     @Autowired
     private ChatClient chatClient;
 
-    @Autowired(required=false)
-    private VectorStore vectorStore;
+//    @Autowired(required=false)
+//    private VectorStore vectorStore;
 
-
-    @GetMapping(value = "/chat", produces = "text/plain; charset=UTF-8")
-    public String generation(String userInput) {
-        // 发起聊天请求并处理响应
-        return chatClient.prompt()
-                .user(userInput)
-                .advisors(new QuestionAnswerAdvisor(vectorStore))
-                .call()
-                .content();
-    }
+//
+//    @GetMapping(value = "/chat", produces = "text/plain; charset=UTF-8")
+//    public String generation(String userInput) {
+//        // 发起聊天请求并处理响应
+//        return chatClient.prompt()
+//                .user(userInput)
+//                .advisors(new QuestionAnswerAdvisor(vectorStore))
+//                .call()
+//                .content();
+//    }
 //    @RequestMapping("/chat")
 //    public String chat(String prompt){
 //        System.out.println(prompt);
@@ -51,18 +51,18 @@ public class ChatController {
 //    }
 
 
-    @GetMapping(value = "/streamChat", produces = "text/event-stream;charset=UTF-8")
-    public Flux<String> streamChat(@RequestParam("message")String message){
-        //创建随机会话 ID
-//        String sessionId = UUID.randomUUID().toString();
-//        ChatClient chatClient = ChatClient.builder(this.model).defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory, sessionId, 10)).build();
-        return chatClient
-                .prompt()
-                .user(message)
-                .advisors(new QuestionAnswerAdvisor(vectorStore))
-                .stream()
-                .content();
-    }
+//    @GetMapping(value = "/streamChat", produces = "text/event-stream;charset=UTF-8")
+//    public Flux<String> streamChat(@RequestParam("message")String message){
+//        //创建随机会话 ID
+////        String sessionId = UUID.randomUUID().toString();
+////        ChatClient chatClient = ChatClient.builder(this.model).defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory, sessionId, 10)).build();
+//        return chatClient
+//                .prompt()
+//                .user(message)
+//                .advisors(new QuestionAnswerAdvisor(vectorStore))
+//                .stream()
+//                .content();
+//    }
 
 
 //    @GetMapping(value = "/promptChat", produces = "text/stream;charset=UTF-8")
