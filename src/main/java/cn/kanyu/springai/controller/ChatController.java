@@ -97,6 +97,9 @@ public class ChatController {
 
 
 
+    @Autowired
+    ChatMemory chatMemory;
+
     /*adVisor对话实现多轮对话记忆*/
     @GetMapping(value = "/historyChat", produces = "text/stream;charset=UTF-8")
     public Flux<String> historyChat(@RequestParam("message")String message){
