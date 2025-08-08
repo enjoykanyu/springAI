@@ -6,6 +6,8 @@ import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.ChatMemoryRepository;
+import org.springframework.ai.chat.memory.MessageWindowChatMemory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,8 +20,17 @@ public class commonConfiguration {
 //        return builder.defaultSystem("你将作为一名机器人产品的专家，对于用户的使用需求作出解答,当前服务的用户姓名：{name},年龄：{age}，性别：{sex}")
 //                .build();
 //    }
-    @Resource
-    ChatMemory chatMemory;
+//    @Resource
+//    ChatMemory chatMemory;
+    @Bean
+    ChatMemory chatMemory(ChatMemoryRepository chatMemoryRepository){
+        return MessageWindowChatMemory
+                .builder()
+                .maxMessages(10)
+                .chatMemoryRepository(chatMemoryRepository)
+                .build();
+
+    }
     //new SimpleLoggerAdvisor(),new ReReadingAdvisor() 自定义advisor
 //    @Bean
 //    ChatClient chatClient(ChatClient.Builder builder) {
@@ -29,10 +40,16 @@ public class commonConfiguration {
 //                .build();
 //    }
         //
+//        @Bean
+//        ChatClient chatClient(ChatClient.Builder builder) {
+//            return builder.defaultSystem(   "你是一位旅游专家" )
+//                    .defaultAdvisors(PromptChatMemoryAdvisor.builder(chatMemory).build())
+//                    .build();
+//        }
         @Bean
         ChatClient chatClient(ChatClient.Builder builder) {
             return builder.defaultSystem(   "你是一位旅游专家" )
-                    .defaultAdvisors(PromptChatMemoryAdvisor.builder(chatMemory).build())
+                    .defaultAdvisors()
                     .build();
         }
 
