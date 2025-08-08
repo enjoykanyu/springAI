@@ -4,6 +4,7 @@ import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
 //import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 //import org.springframework.ai.chat.client.advisor.api.StreamAroundAdvisor;
+import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.ai.ollama.OllamaChatModel;
@@ -104,6 +105,18 @@ public class ChatController {
     @GetMapping(value = "/historyChat", produces = "text/stream;charset=UTF-8")
     public Flux<String> historyChat(@RequestParam("message")String message){
         return chatClient
+                .prompt()
+                .user(message)
+                .stream()
+                .content();
+    }
+
+    @Autowired
+    ChatClient.Builder builder;
+    /*adVisor对话实现多轮对话记忆 自定义对话存储数量*/
+    @GetMapping(value = "/historyChat3", produces = "text/stream;charset=UTF-8")
+    public Flux<String> historyChat3(@RequestParam("message")String message){
+        return builder.defaultAdvisors(PromptChatMemoryAdvisor.builder(chatMemory).build()).build()
                 .prompt()
                 .user(message)
                 .stream()
