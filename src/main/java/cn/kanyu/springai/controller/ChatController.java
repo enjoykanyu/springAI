@@ -113,12 +113,23 @@ public class ChatController {
 
     @Autowired
     ChatClient.Builder builder;
-    /*adVisor对话实现多轮对话记忆 自定义对话存储数量*/
-    @GetMapping(value = "/historyChat3", produces = "text/stream;charset=UTF-8")
-    public Flux<String> historyChat3(@RequestParam("message")String message){
+//    /*adVisor对话实现多轮对话记忆 自定义对话存储数量*/
+//    @GetMapping(value = "/historyChat3", produces = "text/stream;charset=UTF-8")
+//    public Flux<String> historyChat3(@RequestParam("message")String message){
+//        return builder.defaultAdvisors(PromptChatMemoryAdvisor.builder(chatMemory).build()).build()
+//                .prompt()
+//                .user(message)
+//                .stream()
+//                .content();
+//    }
+
+    /*adVisor对话实现多轮对话记忆 自定义对话存储数量 定义多用户隔离记忆*/
+    @GetMapping(value = "/historyChat9", produces = "text/stream;charset=UTF-8")
+    public Flux<String> historyChat9(@RequestParam("message")String message){
         return builder.defaultAdvisors(PromptChatMemoryAdvisor.builder(chatMemory).build()).build()
                 .prompt()
                 .user(message)
+                .advisors(advisorSpec -> advisorSpec.param(ChatMemory.CONVERSATION_ID,"1"))
                 .stream()
                 .content();
     }
