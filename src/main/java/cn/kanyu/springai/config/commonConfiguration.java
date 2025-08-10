@@ -1,5 +1,6 @@
 package cn.kanyu.springai.config;
 
+import cn.kanyu.springai.service.ToolService;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.PromptChatMemoryAdvisor;
@@ -46,10 +47,15 @@ public class commonConfiguration {
 //                    .defaultAdvisors(PromptChatMemoryAdvisor.builder(chatMemory).build())
 //                    .build();
 //        }
+//        @Bean
+//        ChatClient chatClient(ChatClient.Builder builder) {
+//            return builder.defaultSystem(   "你是一位旅游专家" )
+//                    .defaultAdvisors()
+//                    .build();
+//        }
         @Bean
-        ChatClient chatClient(ChatClient.Builder builder) {
-            return builder.defaultSystem(   "你是一位旅游专家" )
-                    .defaultAdvisors()
+        ChatClient chatClient(ChatClient.Builder builder, ToolService toolService) {
+            return builder.defaultTools(toolService) ////底层告诉大模型有哪些工具可以调用
                     .build();
         }
 
