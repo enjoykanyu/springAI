@@ -1,5 +1,6 @@
 package cn.kanyu.springai.controller;
 import cn.kanyu.springai.entity.MoreModelConfig;
+import cn.kanyu.springai.service.ToolService;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
 //import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
@@ -131,6 +132,16 @@ public class ChatController {
                 .user(message)
                 .advisors(advisorSpec -> advisorSpec.param(ChatMemory.CONVERSATION_ID,"1"))
                 .stream()
+                .content();
+    }
+
+    //tool工具调用
+    @GetMapping(value = "/toolChat")
+    public String toolChat(@RequestParam("message")String message){
+        return  chatClient
+                .prompt()
+                .user(message)
+                .call()
                 .content();
     }
 
