@@ -20,12 +20,7 @@ import reactor.core.publisher.Flux;
 @RestController
 @RequestMapping("/ai")
 public class ChatController {
-    //注入模型，配置文件中的模型，或者可以在方法中指定模型
-//    @Resource
-//    private OllamaChatModel model;
 
-    //模拟数据库存储会话和消息
-//    ChatMemory chatMemory = new InMemoryChatMemory();
 
     @Autowired
     private ChatClient chatClient;
