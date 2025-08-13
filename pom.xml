@@ -33,20 +33,7 @@
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <!--ollama spring ai依赖-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.ai</groupId>-->
-<!--            <artifactId>spring-ai-ollama-spring-boot-starter</artifactId>-->
-<!--            <version>1.0.0-M6</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.ai</groupId>-->
-<!--            <artifactId>spring-ai-spring-boot-autoconfigure</artifactId>-->
-<!--            <version>1.0.0-M6</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.ai</groupId>-->
-<!--            <artifactId>spring-ai-starter-model-chat-memory-repository-jdbc</artifactId>-->
-<!--        </dependency>-->
+
         <!-- 集成ollama -->
         <dependency>
             <groupId>org.springframework.ai</groupId>
